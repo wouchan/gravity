@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dar6sqnq6tc3o"]
+
+[ext_resource type="Script" uid="uid://dapvurgee8c02" path="res://scenes/main.gd" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://dwpf663c0mqdl" path="res://scenes/player.tscn" id="1_jjgbg"]
+
+[node name="World" type="Node3D" unique_id=177255926]
+script = ExtResource("1_bo1nx")
+
+[node name="Player" parent="." unique_id=527889355 instance=ExtResource("1_jjgbg")]
+
+[node name="TestLevel" type="Node3D" parent="." unique_id=1850175940]
+
+[node name="Floor" type="CSGBox3D" parent="TestLevel" unique_id=876751701]
+use_collision = true
+size = Vector3(30, 0.1, 30)
+
+[node name="SpawnPoint" type="Marker3D" parent="TestLevel" unique_id=1808870278]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8514528, 12.188874)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=767887034]
+transform = Transform3D(0.13306461, -0.9435469, -0.30333665, -0.4934708, -0.328498, 0.8053419, -0.8595233, 0.042525306, -0.5093243, -8.828504, 6.553091, -8.411734)
