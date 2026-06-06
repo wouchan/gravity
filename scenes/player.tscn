@@ -15,3 +15,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraYaw" unique_id=549608733]
 current = true
+
+[node name="RayCastShoot" type="RayCast3D" parent="CameraYaw/Camera3D" unique_id=1376313570]
+target_position = Vector3(0, 0, -1)
+
+[node name="GravityRaycasts" type="Node3D" parent="." unique_id=1935615814]
+
+[node name="RaycastDown" type="RayCast3D" parent="GravityRaycasts" unique_id=952098354]
+
+[node name="RaycastUp" type="RayCast3D" parent="GravityRaycasts" unique_id=1742816995]
+target_position = Vector3(0, 1, 0)
+
+[node name="RaycastLeft" type="RayCast3D" parent="GravityRaycasts" unique_id=847273456]
+target_position = Vector3(-1, 0, 0)
+
+[node name="RaycastRight" type="RayCast3D" parent="GravityRaycasts" unique_id=1138657038]
+target_position = Vector3(1, 0, 0)
+
+[node name="RaycastForward" type="RayCast3D" parent="GravityRaycasts" unique_id=2047431096]
+target_position = Vector3(0, 0, -1)
+
+[node name="RaycastBack" type="RayCast3D" parent="GravityRaycasts" unique_id=401683039]
+target_position = Vector3(0, 0, 1)
