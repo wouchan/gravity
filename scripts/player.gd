@@ -28,6 +28,7 @@ var shoot_from_right := true # alternates right/left
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_setup_raycasts()
+	_build_body()
 	_build_arms()
 
 func _box(parent: Node3D, size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
@@ -41,6 +42,18 @@ func _box(parent: Node3D, size: Vector3, pos: Vector3, color: Color) -> MeshInst
 	mi.position = pos
 	parent.add_child(mi)
 	return mi
+
+func _build_body() -> void:
+	var body := Node3D.new()
+	body.name = "BodyModel"
+	add_child(body)
+	var suit := Color(0.25, 0.35, 0.55)
+	var dark := Color(0.15, 0.18, 0.25)
+	# Positions are relative to the player origin (camera sits at +0.65)
+	_box(body, Vector3(0.45, 0.55, 0.28), Vector3(0,  0.10, 0.35),    suit)  # torso
+	_box(body, Vector3(0.42, 0.18, 0.26), Vector3(0, -0.25, 0.35),    dark)  # hips
+	_box(body, Vector3(0.16, 0.55, 0.18), Vector3(-0.12, -0.70, 0.35), dark) # leg L
+	_box(body, Vector3(0.16, 0.55, 0.18), Vector3( 0.12, -0.70, 0.35), dark) # leg R
 
 func _build_arms() -> void:
 	viewmodel = Node3D.new()
@@ -102,7 +115,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _handle_mouse_look(delta: Vector2) -> void:
-	camera_yaw.rotate(camera_yaw.basis.y, -delta.x * MOUSE_SENS)
+	#camera_yaw.rotate(camera_yaw.basis.y, -delta.x * MOUSE_SENS)
+	rotate(basis.y, -delta.x * MOUSE_SENS)
 	
 	pitch -= delta.y * MOUSE_SENS
 	pitch = clamp(pitch, deg_to_rad(-85), deg_to_rad(85))
