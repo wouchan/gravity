@@ -4,8 +4,8 @@ const SPEED             := 7.5
 const JUMP_VELOCITY     := 10.0  
 const MOUSE_SENS        := 0.002
 const GRAVITY_STRENGTH  := 20.0
-const SURFACE_SNAP_DIST := 1.8  # max distance to attract to a surface
-const GRAVITY_LERP      := 20.0  # how fast gravity direction rotates
+const SURFACE_SNAP_DIST := 1.8 # max distance to attract to a surface
+const GRAVITY_LERP      := 20.0 # how fast gravity direction rotates
 const HYSTERESIS        := 0.20 # prevents flipping between two surfaces
 const LERP_OFFSET       := Vector3(0.01, 0.01, 0.01) # allows to lerp when new gravity is opposite to the current one
 
@@ -18,10 +18,63 @@ const LERP_OFFSET       := Vector3(0.01, 0.01, 0.01) # allows to lerp when new g
 var pitch := 0.0
 var gravity_dir := Vector3.DOWN
 var target_gravity := Vector3.DOWN
+var viewmodel: Node3D
+var arm_r: Node3D
+var arm_l: Node3D
+var muzzle_r: Node3D
+var muzzle_l: Node3D
+var shoot_from_right := true # alternates right/left
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_setup_raycasts()
+	_build_arms()
+
+func _box(parent: Node3D, size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
+	var mi := MeshInstance3D.new()
+	var bm := BoxMesh.new()
+	bm.size = size
+	mi.mesh = bm
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = color
+	mi.material_override = mat
+	mi.position = pos
+	parent.add_child(mi)
+	return mi
+
+func _build_arms() -> void:
+	viewmodel = Node3D.new()
+	viewmodel.name = "ViewModel"
+	camera.add_child(viewmodel)
+	var right := _build_arm(1.0)
+	var left := _build_arm(-1.0)
+	arm_r = right["arm"]; muzzle_r = right["muzzle"]
+	arm_l = left["arm"]; muzzle_l = left["muzzle"]
+
+func _build_arm(side: float) -> Dictionary:
+	var skin := Color(0.85, 0.65, 0.5)
+	var gun := Color(0.12, 0.12, 0.14)
+	
+	var arm := Node3D.new()
+	arm.position = Vector3(0.22 * side, -0.16, -0.25)
+	arm.set_meta("rest_pos", arm.position) # remembered for recoil
+	viewmodel.add_child(arm)
+	
+	_box(arm, Vector3(0.08, 0.08, 0.28), Vector3(0, 0, -0.10), skin) # forearm
+	_box(arm, Vector3(0.09, 0.09, 0.10), Vector3(0, 0, -0.26), skin) # hand
+	
+	var pistol := Node3D.new()
+	pistol.position = Vector3(0, 0, -0.32)
+	arm.add_child(pistol)
+	_box(pistol, Vector3(0.07, 0.10, 0.20), Vector3(0,  0.00,  0.00), gun) # body/slide
+	_box(pistol, Vector3(0.06, 0.13, 0.07), Vector3(0, -0.10,  0.06), gun) # grip
+	
+	var muzzle := Marker3D.new()
+	muzzle.position = Vector3(0, 0.0, -0.13) # tip of barrel, points -Z
+	
+	pistol.add_child(muzzle)
+	
+	return {"arm": arm, "muzzle": muzzle}
 
 func _setup_raycasts() -> void:
 	# point each raycast in its local direction, long enough to detect surfaces
