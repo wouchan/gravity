@@ -25,6 +25,9 @@ var muzzle_r: Node3D
 var muzzle_l: Node3D
 var shoot_from_right := true # alternates right/left
 
+const Projectile := preload("res://scenes/projectile.tscn")
+const PROJECTILE_SPEED := 30.0 # lower = bigger visible arc
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_setup_raycasts()
@@ -200,13 +203,6 @@ func _handle_jump() -> void:
 	if Input.is_action_pressed("jump") and is_on_floor_ex():
 		velocity += -gravity_dir * JUMP_VELOCITY
 
-func _handle_shoot() -> void:
-	if Input.is_action_just_pressed("shoot"):
-		if shoot_ray.is_colliding():
-			var target := shoot_ray.get_collider()
-			if target and target.is_in_group("enemies"):
-				target.take_damage(25)
-
 func _update_collision_orientation() -> void:
 	# Rotate capsule so its long axis aligns with local up
 	var local_up := -gravity_dir
@@ -215,3 +211,29 @@ func _update_collision_orientation() -> void:
 		local_up,
 		transform.basis.z
 	).orthonormalized()
+
+func _handle_shoot() -> void:
+	if Input.is_action_just_pressed("shoot"):
+		if shoot_from_right:
+			_fire(muzzle_r, arm_r)
+		else:
+			_fire(muzzle_l, arm_l)
+		shoot_from_right = not shoot_from_right   # flip for next shot
+
+func _fire(muzzle: Marker3D, arm: Node3D) -> void:
+	var proj := Projectile.instantiate()
+	get_tree().current_scene.add_child(proj)        # add to WORLD, not the player
+	proj.global_position = muzzle.global_position
+	proj.add_collision_exception_with(self)         # don't hit yourself on spawn
+
+	# Aim along the CAMERA forward (crosshair), not the pistol's slight angle:
+	var dir := -camera.global_transform.basis.z
+	proj.launch(dir * PROJECTILE_SPEED)
+
+	_recoil(arm)
+
+func _recoil(arm: Node3D) -> void:
+	var rest : Vector3 = arm.get_meta("rest_pos")
+	var t := create_tween()
+	t.tween_property(arm, "position", rest + Vector3(0, 0, 0.05), 0.04)  # kick back
+	t.tween_property(arm, "position", rest, 0.12)                        # settle
