@@ -1,9 +1,9 @@
 extends Node3D
 
 # Room dimensions
-const W := 16.0 # width
-const H := 8.0  # height
-const D := 20.0 # depth
+const W := 24.0 # width
+const H := 10.0  # height
+const D := 28.0 # depth
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

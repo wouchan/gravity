@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://7itkokpca5ot"]
+
+[ext_resource type="Script" uid="uid://brtjnsc8vgkd2" path="res://scripts/enemy.gd" id="1_7p1mj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7p1mj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_md0e3"]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=433706395]
+script = ExtResource("1_7p1mj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=467797566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_7p1mj")
+
+[node name="Model" type="Node3D" parent="." unique_id=503217701]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Model" unique_id=1123863290]
+transform = Transform3D(0.39228907, 0, 0, 0, 0.5857432, 0, 0, 0, 0.2314418, 0, 1.3022962, -0.057323605)
+mesh = SubResource("BoxMesh_md0e3")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Model" unique_id=1898412463]
+transform = Transform3D(0.18076658, 0, 0, 0, 0.18516314, 0, 0, 0, 0.16776495, 0, 1.7371153, -0.057323605)
+mesh = SubResource("BoxMesh_md0e3")
+
+[node name="LegL" type="Node3D" parent="Model" unique_id=534664351]
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Model/LegL" unique_id=614787511]
+transform = Transform3D(0.1549901, 0, 0, 0, 0.37941447, 0, 0, 0, 0.14268726, 0.1079897, 0.7560683, -0.057323605)
+mesh = SubResource("BoxMesh_md0e3")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Model/LegL" unique_id=1469067577]
+transform = Transform3D(0.1549901, 0, 0, 0, 0.37941447, 0, 0, 0, 0.14268726, 0.1079897, 0.3340541, -0.057323605)
+mesh = SubResource("BoxMesh_md0e3")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Model/LegL" unique_id=1963946660]
+transform = Transform3D(0.1549901, 0, 0, 0, 0.098786026, 0, 0, 0, 0.2703144, 0.1079897, 0.072291374, -0.009931952)
+mesh = SubResource("BoxMesh_md0e3")
+
+[node name="LegR" type="Node3D" parent="Model" unique_id=742240509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.214156, 0, 0)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Model/LegR" unique_id=1693702773]
+transform = Transform3D(0.1549901, 0, 0, 0, 0.37941447, 0, 0, 0, 0.14268726, 0.1079897, 0.7560683, -0.057323605)
+mesh = SubResource("BoxMesh_md0e3")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Model/LegR" unique_id=523724634]
+transform = Transform3D(0.1549901, 0, 0, 0, 0.37941447, 0, 0, 0, 0.14268726, 0.1079897, 0.3340541, -0.057323605)
+mesh = SubResource("BoxMesh_md0e3")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Model/LegR" unique_id=1481386187]
+transform = Transform3D(0.1549901, 0, 0, 0, 0.098786026, 0, 0, 0, 0.2703144, 0.1079897, 0.072291374, -0.009931952)
+mesh = SubResource("BoxMesh_md0e3")
+
+[node name="ArmL" type="Node3D" parent="Model" unique_id=1536640620]
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Model/ArmL" unique_id=729591777]
+transform = Transform3D(0.10420629, 0, 0, 0, 0.32056955, 0, 0, 0, 0.105404034, 0.28903, 1.4308947, -0.024892956)
+mesh = SubResource("BoxMesh_md0e3")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Model/ArmL" unique_id=1149143582]
+transform = Transform3D(0.10420629, 0, 0, 0, 0.32056955, 0, 0, 0, 0.105404034, 0.28903, 1.0794888, -0.024892956)
+mesh = SubResource("BoxMesh_md0e3")
+
+[node name="ArmL2" type="Node3D" parent="Model" unique_id=261680969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58619756, 0, 0)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Model/ArmL2" unique_id=761407837]
+transform = Transform3D(0.10420629, 0, 0, 0, 0.32056955, 0, 0, 0, 0.105404034, 0.28903, 1.4308947, -0.024892956)
+mesh = SubResource("BoxMesh_md0e3")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Model/ArmL2" unique_id=1769979301]
+transform = Transform3D(0.10420629, 0, 0, 0, 0.32056955, 0, 0, 0, 0.105404034, 0.28903, 1.0794888, -0.024892956)
+mesh = SubResource("BoxMesh_md0e3")

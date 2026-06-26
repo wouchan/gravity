@@ -24,6 +24,7 @@ var arm_l: Node3D
 var muzzle_r: Node3D
 var muzzle_l: Node3D
 var shoot_from_right := true # alternates right/left
+var is_dead := false
 
 const Projectile := preload("res://scenes/projectile.tscn")
 const PROJECTILE_SPEED := 30.0 # lower = bigger visible arc
@@ -33,6 +34,7 @@ func _ready() -> void:
 	_setup_raycasts()
 	_build_body()
 	_build_arms()
+	add_to_group("player")
 
 func _box(parent: Node3D, size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
 	var mi := MeshInstance3D.new()
@@ -237,3 +239,22 @@ func _recoil(arm: Node3D) -> void:
 	var t := create_tween()
 	t.tween_property(arm, "position", rest + Vector3(0, 0, 0.05), 0.04)  # kick back
 	t.tween_property(arm, "position", rest, 0.12)                        # settle
+
+func hit() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	_red_flash()
+	await get_tree().create_timer(0.45).timeout
+	get_tree().reload_current_scene()      # back to the level's initial state
+
+func _red_flash() -> void:
+	var layer := CanvasLayer.new()
+	add_child(layer)                       # freed automatically on reload
+	var rect := ColorRect.new()
+	rect.color = Color(1, 0, 0.25, 0.0)
+	rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.add_child(rect)
+	var t := create_tween()
+	t.tween_property(rect, "color:a", 1.0, 0.12)

@@ -4,7 +4,7 @@ const LIFETIME := 6.0
 var _exploded := false
 
 func _ready() -> void:
-	gravity_scale = 2.5
+	gravity_scale = 2.0
 	mass = 0.5
 	
 	contact_monitor = true
@@ -41,7 +41,9 @@ func launch(vel: Vector3) -> void:
 	linear_velocity = vel
 	angular_velocity = Vector3(randf_range(-8, 8), randf_range(-8, 8), randf_range(-8, 8))
 
-func _on_hit(_body: Node) -> void:
+func _on_hit(body: Node) -> void:
+	if body.is_in_group("enemies") and body.has_method("take_hit"):
+		body.take_hit()
 	_explode()
 
 func _explode() -> void:

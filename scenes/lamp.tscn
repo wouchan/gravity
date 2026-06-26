@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dwahmyjywom3w"]
+
+[ext_resource type="Texture2D" uid="uid://dqa34pekxsxqi" path="res://textures/lamp.png" id="1_72t4t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xmmgs"]
+albedo_texture = ExtResource("1_72t4t")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+texture_filter = 0
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5dfy6"]
+albedo_color = Color(0.19793725, 0.19793722, 0.19793722, 1)
+
+[node name="Lamp" type="Node3D" unique_id=1851431343]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=499098816]
+cast_shadow = 0
+size = Vector3(0.5, 0.25, 0.25)
+material = SubResource("StandardMaterial3D_xmmgs")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1076456859]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.175, -0.075)
+cast_shadow = 0
+size = Vector3(0.25, 0.1, 0.1)
+material = SubResource("StandardMaterial3D_5dfy6")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1921585657]
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 10.0
