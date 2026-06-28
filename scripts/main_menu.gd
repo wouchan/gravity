@@ -80,21 +80,6 @@ func _build_settings() -> void:
 	fs.toggled.connect(_on_fullscreen_toggled)
 	_settings.add_child(fs)
 
-	# Volume
-	var vlabel := Label.new()
-	vlabel.text = "Master Volume"
-	_settings.add_child(vlabel)
-
-	var vol := HSlider.new()
-	vol.min_value = 0.0
-	vol.max_value = 1.0
-	vol.step = 0.01
-	vol.custom_minimum_size = Vector2(240, 0)
-	var bus := AudioServer.get_bus_index("Master")
-	vol.value = db_to_linear(AudioServer.get_bus_volume_db(bus))
-	vol.value_changed.connect(_on_volume_changed)
-	_settings.add_child(vol)
-
 	_button(_settings, "Back", func(): _show_only(_main))
 
 func _on_fullscreen_toggled(on: bool) -> void:
