@@ -26,6 +26,8 @@ var _legL_pivot : Node3D
 var _legR_pivot : Node3D
 var _muzzle : Marker3D
 
+signal died
+
 # ── Setup ─────────────────────────────────────────────────────────────
 func _ready() -> void:
 	add_to_group("enemies")
@@ -202,6 +204,7 @@ func take_hit() -> void:
 	if _dead:
 		return
 	_dead = true
+	died.emit()
 	set_physics_process(false)
 	_col.set_deferred("disabled", true)
 	_glow_and_vanish()

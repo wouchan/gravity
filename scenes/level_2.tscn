@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b4hec38isu4td" path="res://scripts/level.gd" id="1_3bmlt"]
 [ext_resource type="PackedScene" uid="uid://dfwqrklh1fv6k" path="res://scenes/siren.tscn" id="2_b4j7a"]
 [ext_resource type="Texture2D" uid="uid://bx7dgu4t3axun" path="res://textures/floor.png" id="2_pbc48"]
+[ext_resource type="PackedScene" uid="uid://155f27avcce3" path="res://scenes/level_3.tscn" id="3_172wr"]
 [ext_resource type="PackedScene" uid="uid://dwpf663c0mqdl" path="res://scenes/player.tscn" id="3_eqxsl"]
 [ext_resource type="PackedScene" uid="uid://dwahmyjywom3w" path="res://scenes/lamp.tscn" id="3_wo48x"]
 [ext_resource type="Texture2D" uid="uid://xneddtyvfvu0" path="res://textures/wall.png" id="5_6cvei"]
@@ -40,11 +41,11 @@ texture_filter = 0
 albedo_texture = ExtResource("5_6cvei")
 texture_filter = 0
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7qsfm"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_que50"]
 load_path = "res://.godot/imported/floor.png-10573061cf57dd23ff87b6d55d8d06d1.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bv48q"]
-albedo_texture = SubResource("CompressedTexture2D_7qsfm")
+albedo_texture = SubResource("CompressedTexture2D_que50")
 uv1_scale = Vector3(14, 16.5, 1)
 texture_filter = 0
 
@@ -159,6 +160,9 @@ albedo_texture = ExtResource("5_6cvei")
 uv1_scale = Vector3(2, 1, 1)
 texture_filter = 0
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7qsfm"]
+load_path = "res://.godot/imported/floor.png-10573061cf57dd23ff87b6d55d8d06d1.s3tc.ctex"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rur20"]
 albedo_texture = SubResource("CompressedTexture2D_7qsfm")
 uv1_scale = Vector3(3, 6.625, 1)
@@ -185,6 +189,7 @@ texture_filter = 0
 
 [node name="Level2" type="Node3D" unique_id=98908911]
 script = ExtResource("1_3bmlt")
+next_scene = ExtResource("3_172wr")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=3072696]
 environment = SubResource("Environment_b4j7a")
@@ -545,11 +550,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2511282, -2.3991404)
 size = Vector3(2, 2.5, 0.001)
 material = SubResource("StandardMaterial3D_bgibu")
 
-[node name="Player" parent="." unique_id=527889355 instance=ExtResource("3_eqxsl")]
-
-[node name="SpawnPoint" type="Marker3D" parent="." unique_id=820144821]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
 [node name="Enemy" parent="." unique_id=433706395 instance=ExtResource("11_hey2k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.4, -20)
 
@@ -564,3 +564,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 25.199999, -20)
 
 [node name="Enemy5" parent="." unique_id=1770493298 instance=ExtResource("11_hey2k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 25.199999, -10)
+
+[node name="Player" parent="." unique_id=527889355 instance=ExtResource("3_eqxsl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

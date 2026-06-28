@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b4hec38isu4td" path="res://scripts/level.gd" id="1_h23n6"]
 [ext_resource type="PackedScene" uid="uid://dwpf663c0mqdl" path="res://scenes/player.tscn" id="2_uwxec"]
 [ext_resource type="Texture2D" uid="uid://chq0ogutipvfy" path="res://textures/doors.png" id="3_ah8om"]
+[ext_resource type="PackedScene" uid="uid://batb31xtl5eeb" path="res://scenes/main_menu.tscn" id="3_ax3dk"]
 [ext_resource type="Texture2D" uid="uid://xneddtyvfvu0" path="res://textures/wall.png" id="4_p6vls"]
 [ext_resource type="PackedScene" uid="uid://dwahmyjywom3w" path="res://scenes/lamp.tscn" id="5_hhfj6"]
 [ext_resource type="Texture2D" uid="uid://v57xpr5v7n1e" path="res://textures/ceiling.png" id="6_p6vls"]
@@ -128,14 +129,10 @@ texture_filter = 0
 
 [node name="Level3" type="Node3D" unique_id=1437907401]
 script = ExtResource("1_h23n6")
+next_scene = ExtResource("3_ax3dk")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=5169834]
 environment = SubResource("Environment_1pn4d")
-
-[node name="Player" parent="." unique_id=527889355 instance=ExtResource("2_uwxec")]
-
-[node name="SpawnPoint" type="Marker3D" parent="." unique_id=661009339]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 
 [node name="Walls" type="Node3D" parent="." unique_id=1865166145]
 
@@ -1139,3 +1136,6 @@ transform = Transform3D(-3.934025e-07, 0, 1, 0, 1, 0, -1, 0, -3.934025e-07, -15.
 
 [node name="Enemy16" parent="Walls" unique_id=1977705382 instance=ExtResource("10_vcx5n")]
 transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -14.714764, 14.199997, 31.619556)
+
+[node name="Player" parent="." unique_id=527889355 instance=ExtResource("2_uwxec")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
